@@ -1,6 +1,20 @@
-#Voucher Shop
+# Voucher Shop API
 
-Doc Case (Topup & Buy Voucher) : <br>
+## Usage
+
+to start, simply
+
+```sh
+$ npm i
+$ npm run dev
+```
+
+## Configuration
+
+Edit file ```config/index.js``` & ```config/config.json``` as you please.
+
+#Doc URL
+Simple Case (Topup & Buy Voucher) : <br>
 *Login (/login) POST (email: String, password: String)<br>
 *Register (/Register) Post (firstName: String, lastName: String, email: string, password: string)<br>
 *Topup (/topup) POST (userId: Integer, nominal: Integer)<br>
