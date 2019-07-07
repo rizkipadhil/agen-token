@@ -128,7 +128,7 @@ const konfirmasiData = async (req, res) => {
                 status: 0,
                 message: "Can't Change Topup Status!"
             });
-            die();
+            return;
         } 
         var dataRelation = await relationDatakonfirmasi.create({
             userId: req.user_active.id,
@@ -159,6 +159,13 @@ const konfirmasiData = async (req, res) => {
 const updateKonfirmasiData = async (req, res) => {
     try {
         // status diterima, ditolak
+        if (!(req.params.status === 'diterima' || req.params.status === 'ditolak')) {
+            res.json({
+                status: 0,
+                message: "Status Diterima / Ditolak"
+            });
+            return;
+        }
         var findData = await relationDatakonfirmasi.findOne({
             where: {
                 id: req.params.id
@@ -172,7 +179,7 @@ const updateKonfirmasiData = async (req, res) => {
                 status: 0,
                 message: "Can't Change Konfirmasi Status!"
             });
-            die();
+            return;
         }
         var data = await modelData.update({
             status: req.params.status
@@ -191,10 +198,10 @@ const updateKonfirmasiData = async (req, res) => {
         if (req.params.status === 'diterima') {
             var findDataRelation = await relationDataUser.findOne({
                 where: {
-                    id: req.user_active.id
+                    id: findData.userId
                 }
             });
-            var saldo = findData.topup['nominal'] + findDataRelation.saldo;
+            var saldo = (parseInt(findData.topup['nominal']) + parseInt(findDataRelation.saldo));
             const User = await relationDataUser.update({
                 saldo: saldo
             }, {

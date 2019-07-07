@@ -80,7 +80,7 @@ const register = async (req, res) => {
             res.json({
                 status: 200,
                 message: 'Success',
-                data: user
+                data: newUser
             })
         }
     } catch (error) {

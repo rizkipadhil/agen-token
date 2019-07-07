@@ -76,7 +76,7 @@ const createData = async (req, res) => {
                 status: 200,
                 message: "Please, Topup your balance."
             });
-            die();
+            return;
         }
         if (dataVoucher.stok < jumlah){
             res.json({
@@ -84,7 +84,7 @@ const createData = async (req, res) => {
                 message: "Sorry, There is not enough stock",
                 voucher: dataVoucher
             });
-            die();
+            return;
         }
         var data = await modelData.create({
             voucherId: voucherId,
@@ -92,7 +92,7 @@ const createData = async (req, res) => {
             jumlah: jumlah,
             nominal: nominal
         });
-        var saldo = dataUser.saldo - nominal;
+        var saldo = parseInt(dataUser.saldo) - parseInt(nominal);
         const User = await relationDataUser.update({
             saldo: saldo
         }, {
@@ -100,7 +100,7 @@ const createData = async (req, res) => {
                 id: dataUser.id
             }
         });
-        var stokBarang = dataVoucher.stok - 1;
+        var stokBarang = parseInt(dataVoucher.stok) - 1;
         const Voucher = await relationDataVoucher.update({
             stok: stokBarang
         }, {
