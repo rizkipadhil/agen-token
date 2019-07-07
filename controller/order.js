@@ -4,7 +4,7 @@ const relationDataUser = require('../models').User;
 
 const allData = async (req, res) => {
     try {
-        if(req.user_role !== 'admin') res.json({ status: 0, message: 'You dont have Access!' })
+        if(req.role_user !== 'admin') res.json({ status: 0, message: 'You dont have Access!' })
         var data = await modelData.findAll({
             include: [{
                 model: relationDataVoucher
@@ -31,7 +31,7 @@ const allUserOrderData = async (req, res) => {
     try {
         var data = await modelData.findAll({
             where:{
-              userId: req.params.id  
+              userId: req.user_active.id  
             },
             include: [{
                 model: relationDataVoucher
@@ -57,18 +57,56 @@ const allUserOrderData = async (req, res) => {
 const createData = async (req, res) => {
     try {
         const {
-            voucherId,
-            userId,
-            jumlah,
-            nominal
+            voucherId
         } = req.body;
-        const vanumber = "VA" + Math.floor(Math.random() * (100000 - 10000 + 1) + 10000);
+        const jumlah = 1;
+        const dataUser = await relationDataUser.findOne({
+            where: {
+                id: req.user_active.id
+            }
+        });
+        const dataVoucher = await relationDataVoucher.findOne({
+            where: {
+                id: voucherId
+            }
+        });
+        var nominal = jumlah*dataVoucher.harga;
+        if (dataUser.saldo < nominal) {
+            res.json({
+                status: 200,
+                message: "Please, Topup your balance."
+            });
+            die();
+        }
+        if (dataVoucher.stok < jumlah){
+            res.json({
+                status: 200,
+                message: "Sorry, There is not enough stock",
+                voucher: dataVoucher
+            });
+            die();
+        }
         var data = await modelData.create({
             voucherId: voucherId,
-            userId: userId,
-            vanumber: vanumber,
+            userId: dataUser.id,
             jumlah: jumlah,
             nominal: nominal
+        });
+        var saldo = dataUser.saldo - nominal;
+        const User = await relationDataUser.update({
+            saldo: saldo
+        }, {
+            where: {
+                id: dataUser.id
+            }
+        });
+        var stokBarang = dataVoucher.stok - 1;
+        const Voucher = await relationDataVoucher.update({
+            stok: stokBarang
+        }, {
+            where: {
+                id: voucherId
+            }
         });
         res.json({
             status: 200,
@@ -84,42 +122,9 @@ const createData = async (req, res) => {
     }
 }
 
-const updateStatusData = async (req, res) => {
-    try {
-        var findData = await modelData.findOne({
-            where:{
-                id: req.params.id
-            }
-        });
-        if(!findData) res.json({status: 0, message: "Order Not Found"});
-        var data = await modelData.update({
-            voucherId: voucherId,
-            userId: userId,
-            jumlah: jumlah,
-            nominal: nominal
-        }, 
-        {
-            where: {
-                id: req.params.id
-            }
-        });
-        res.json({
-            status: 200,
-            message: 'Success',
-            data: req.body
-        });
-    } catch (error) {
-        console.log(error);
-        res.json({
-            status: error.code,
-            message: error.message
-        })
-    }
-}
-
 const deleteData = async (req, res) => {
     try {
-        if (req.user_role !== 'admin') res.json({
+        if (req.role_user !== 'admin') res.json({
             status: 0,
             message: 'You dont have Access!'
         })
@@ -179,7 +184,6 @@ module.exports = {
     allData,
     allUserOrderData,
     createData,
-    updateData,
     deleteData,
     findData
 };

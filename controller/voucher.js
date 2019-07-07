@@ -24,6 +24,10 @@ const allData = async (req, res) => {
 
 const createData = async (req, res) => {
     try {
+        if (req.role_user !== 'admin') res.json({
+            status: 0,
+            message: 'You dont have Access!'
+        })
         const {
             harga,
             nama,
@@ -52,6 +56,10 @@ const createData = async (req, res) => {
 
 const updateData = async (req, res) => {
     try {
+        if (req.role_user !== 'admin') res.json({
+            status: 0,
+            message: 'You dont have Access!'
+        })
         const {
             harga,
             nama,
@@ -90,8 +98,51 @@ const updateData = async (req, res) => {
     }
 }
 
+const updateStockData = async (req, res) => {
+    try {
+        if (req.role_user !== 'admin') res.json({
+            status: 0,
+            message: 'You dont have Access!'
+        })
+        const {
+            stok
+        } = req.body;
+        var findData = await modelData.findOne({
+            where:{
+                id: req.params.id
+            }
+        });
+        if(!findData) res.json({status: 0, message: "Voucher Not Found"});
+        const stokData = findData.stok + stok;
+        const serialnumber = findData.serialnumber; 
+        var data = await modelData.update({
+            stok: stokData
+        }, 
+        {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.json({
+            status: 200,
+            message: 'Success',
+            data: req.body
+        });
+    } catch (error) {
+        console.log(error);
+        res.json({
+            status: error.code,
+            message: error.message
+        })
+    }
+}
+
 const deleteData = async (req, res) => {
     try {
+        if (req.role_user !== 'admin') res.json({
+            status: 0,
+            message: 'You dont have Access!'
+        })
         var findData = await modelData.findOne({
             where: {
                 id: req.params.id
@@ -146,6 +197,7 @@ module.exports = {
     allData,
     createData,
     updateData,
+    updateStockData,
     deleteData,
     findData
 };

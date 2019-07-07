@@ -5,6 +5,8 @@ const validator = require('express-joi-validation').createValidator({
 });
 const authController = require('../controller/auth');
 const modelData = require('../models').User;
+const authMiddleware = require('../middleware/auth');
+
 
 var router = express.Router();
 
@@ -24,5 +26,18 @@ const registerSchema = {
 router.post('/login', validator.body(loginSchema), authController.login);
 
 router.post('/register', validator.body(registerSchema), authController.register);
+
+router.get('/profile', authMiddleware.verifyToken, async (req, res) => {
+    const data = await modelData.findOne({
+        where: {
+            id: req.user_active.id
+        }
+    });
+    res.json({
+        status: 200,
+        message: 'success',
+        data: data
+    });
+});
 
 module.exports = router;

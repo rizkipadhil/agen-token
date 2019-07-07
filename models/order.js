@@ -9,13 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     voucherId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
-    vanumber: DataTypes.STRING,
     jumlah: DataTypes.INTEGER,
-    nominal: DataTypes.INTEGER,
-    status: {
-      type: DataTypes.STRING,
-      defaultValue: "proses"
-    }
+    nominal: DataTypes.INTEGER
   }, {});
   Order.associate = function(models) {
     // associations can be defined here

@@ -10,6 +10,8 @@ const homeRouter = require('./routes/home');
 const authRouter = require('./routes/auth');
 const voucherRouter = require('./routes/voucher');
 const userRouter = require('./routes/user');
+const topupRouter = require('./routes/topup');
+const orderRouter = require('./routes/order');
 
 const app = express();
 app.use(cors());
@@ -22,17 +24,22 @@ app.use(homeRouter);
 app.use(authRouter);
 app.use('/voucher',voucherRouter);
 app.use('/user',voucherRouter);
+app.use('/topup',topupRouter);
+app.use('/order',orderRouter);
 
 app.use(passport.initialize());
 
 // error handler
 app.use(function (err, req, res, next) {
-    res.locals.message = err.message;
-    res.json({
-        status: err.code,
+    var status = err.status || 500;
+    res.status(statuus);
+    res.json("error", {
+        error: err,
+        status: status,
         message: err.message
     });
 });
+
 
 
 

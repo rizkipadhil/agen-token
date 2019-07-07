@@ -1,6 +1,7 @@
 const modelData = require('../models').User;
 const relationData = require('../models').Order;
 const relationDataTopup = require('../models').topup;
+const relationDatakonfirmasi = require('../models').konfirmasi;
 const bcrypt = require('bcrypt');
 
 const allData = async (req, res) => {
@@ -96,12 +97,17 @@ const deleteData = async (req, res) => {
                 id: req.params.id
             }
         });
-        const deleteDataRelation = await relationData.destroy({
+        const deleteDataRelation1 = await relationData.destroy({
             where: {
                 userId: findData.id
             }
         })
-        const deleteDataRelation = await relationDataTopup.destroy({
+        const deleteDataRelation2 = await relationDataTopup.destroy({
+            where: {
+                userId: findData.id
+            }
+        })
+        const deleteDataRelation3 = await relationDatakonfirmasi.destroy({
             where: {
                 userId: findData.id
             }

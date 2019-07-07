@@ -21,9 +21,14 @@ const updateSchema = {
     stok: Joi.number().allow("")
 };
 
+const updateStockSchema = {
+    stok: Joi.number().required()
+}
+
 router.get('/', dataController.allData);
 router.get('/:id', dataController.findData);
 router.post('/', authMiddleware.verifyToken, validator.body(createSchema), dataController.createData);
 router.put('/:id', authMiddleware.verifyToken, validator.body(updateSchema), dataController.updateData);
+router.put('/stock/:id', authMiddleware.verifyToken, validator.body(updateStockSchema), dataController.updateStockData);
 router.delete('/:id', authMiddleware.verifyToken, dataController.deleteData);
 module.exports = router;

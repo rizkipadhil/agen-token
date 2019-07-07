@@ -56,7 +56,7 @@ const verifyToken = async (req, res, next) => {
                 })
             }
             req.user_active = userData;
-            req.role_user = req.user_active.role;
+            req.role_user = userData.role;
             await next();
         } catch (err) {
             res.json({

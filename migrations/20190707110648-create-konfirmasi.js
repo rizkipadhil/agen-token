@@ -1,24 +1,29 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('orders', {
+    return queryInterface.createTable('konfirmasis', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      voucherId: {
-        type: Sequelize.INTEGER
-      },
       userId: {
         type: Sequelize.INTEGER
       },
-      jumlah: {
+      topupId: {
         type: Sequelize.INTEGER
       },
-      nominal: {
-        type: Sequelize.INTEGER
+      banknumber: {
+        type: Sequelize.STRING
+      },
+      nama: {
+        type: Sequelize.STRING
+      },
+      status: {
+        type: Sequelize.STRING,
+        allowNull: true,
+        defaultValue: "proses"
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +36,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Orders');
+    return queryInterface.dropTable('konfirmasis');
   }
 };
