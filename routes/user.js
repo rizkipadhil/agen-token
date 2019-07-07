@@ -9,21 +9,18 @@ const authMiddleware = require('../middleware/auth');
 
 var router = express.Router();
 
-const createSchema = {
-    harga: Joi.number().required(),
-    nama: Joi.string().required(),
-    stok: Joi.number().required()
-};
-
 const updateSchema = {
-    harga: Joi.number().required(),
-    nama: Joi.string().required(),
-    stok: Joi.number().allow("")
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    email: Joi.string().required(),
+    password: Joi.string()
+        .required()
+        .min(8)
 };
 
-router.get('/', dataController.allData);
-router.get('/:id', dataController.findData);
-router.post('/', authMiddleware.verifyToken, validator.body(createSchema), dataController.createData);
+
+router.get('/', authMiddleware.verifyToken, dataController.allData);
+router.get('/:id', authMiddleware.verifyToken, dataController.findData);
 router.put('/:id', authMiddleware.verifyToken, validator.body(updateSchema), dataController.updateData);
 router.delete('/:id', authMiddleware.verifyToken, dataController.deleteData);
 module.exports = router;
