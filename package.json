@@ -4,7 +4,8 @@
   "description": "Tempat jual sana sini voucher pulsa, steam, diskon dll",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
@@ -23,5 +24,10 @@
     "passport-jwt": "^4.0.0",
     "sequelize": "^5.9.3",
     "sequelize-cli": "^5.5.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.1.4",
+    "should": "^13.2.3",
+    "supertest": "^4.0.2"
   }
 }

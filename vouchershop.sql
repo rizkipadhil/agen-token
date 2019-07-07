@@ -27,12 +27,10 @@ CREATE TABLE IF NOT EXISTS `konfirmasis` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table vouchershop.konfirmasis: ~0 rows (approximately)
 /*!40000 ALTER TABLE `konfirmasis` DISABLE KEYS */;
-INSERT INTO `konfirmasis` (`id`, `userId`, `topupId`, `banknumber`, `nama`, `status`, `createdAt`, `updatedAt`) VALUES
-	(5, 1, 1, '123456', 'meong', 'diterima', '2019-07-07 13:22:13', '2019-07-07 13:31:28');
 /*!40000 ALTER TABLE `konfirmasis` ENABLE KEYS */;
 
 -- Dumping structure for table vouchershop.orders
@@ -45,19 +43,10 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table vouchershop.orders: ~1 rows (approximately)
+-- Dumping data for table vouchershop.orders: ~0 rows (approximately)
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` (`id`, `voucherId`, `userId`, `jumlah`, `nominal`, `createdAt`, `updatedAt`) VALUES
-	(1, 2, 1, 1, 10000, '2019-07-07 14:11:48', '2019-07-07 14:11:48'),
-	(2, 2, 1, 1, 15000, '2019-07-07 13:37:06', '2019-07-07 13:37:06'),
-	(3, 2, 1, 1, 15000, '2019-07-07 13:37:15', '2019-07-07 13:37:15'),
-	(4, 2, 1, 1, 15000, '2019-07-07 13:37:18', '2019-07-07 13:37:18'),
-	(5, 2, 1, 1, 15000, '2019-07-07 13:40:35', '2019-07-07 13:40:35'),
-	(6, 2, 1, 1, 15000, '2019-07-07 13:41:07', '2019-07-07 13:41:07'),
-	(7, 4, 1, 1, 100000, '2019-07-07 13:43:52', '2019-07-07 13:43:52'),
-	(8, 4, 1, 1, 100000, '2019-07-07 13:43:55', '2019-07-07 13:43:55');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table vouchershop.sequelizemeta
@@ -90,10 +79,8 @@ CREATE TABLE IF NOT EXISTS `topups` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table vouchershop.topups: ~0 rows (approximately)
+-- Dumping data for table vouchershop.topups: ~1 rows (approximately)
 /*!40000 ALTER TABLE `topups` DISABLE KEYS */;
-INSERT INTO `topups` (`id`, `userId`, `nominal`, `taxcode`, `uniquevalue`, `status`, `createdAt`, `updatedAt`) VALUES
-	(1, 1, 30000, 'VA83030', 936, 'diterima', '2019-07-07 13:11:32', '2019-07-07 13:31:28');
 /*!40000 ALTER TABLE `topups` ENABLE KEYS */;
 
 -- Dumping structure for table vouchershop.users
@@ -108,13 +95,13 @@ CREATE TABLE IF NOT EXISTS `users` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table vouchershop.users: ~2 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `firstName`, `lastName`, `email`, `password`, `saldo`, `role`, `createdAt`, `updatedAt`) VALUES
-	(1, 'admin', 'admin', 'admin@admin.com', '$2b$10$KpLGaYAQnE.LioJJrZ1mqOEYlQfTy/EOuob7wLH5yRKYP6h3QNU..', '25000', 'admin', '2019-07-06 15:02:26', '2019-07-07 13:43:55'),
-	(3, 'hello', 'hei', 'hello123@admin.com', '$2b$10$MSatLj./sX0jF4qroYBWVuc.17OTPrm2frvS/jL0sLlSLmE0.2nG6', '0', 'member', '2019-07-06 09:49:15', '2019-07-06 09:49:15');
+	(1, 'admin', 'admin', 'admin@admin.com', '$2b$10$KpLGaYAQnE.LioJJrZ1mqOEYlQfTy/EOuob7wLH5yRKYP6h3QNU..', '0', 'admin', '2019-07-06 15:02:26', '2019-07-07 14:58:56'),
+	(3, 'hello', 'hei', 'hello123@admin.com', '$2b$10$KpLGaYAQnE.LioJJrZ1mqOEYlQfTy/EOuob7wLH5yRKYP6h3QNU..', '20000', 'member', '2019-07-06 09:49:15', '2019-07-07 18:07:03');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table vouchershop.vouchers
@@ -129,12 +116,12 @@ CREATE TABLE IF NOT EXISTS `vouchers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table vouchershop.vouchers: ~2 rows (approximately)
+-- Dumping data for table vouchershop.vouchers: ~3 rows (approximately)
 /*!40000 ALTER TABLE `vouchers` DISABLE KEYS */;
 INSERT INTO `vouchers` (`id`, `harga`, `nama`, `serialnumber`, `stok`, `createdAt`, `updatedAt`) VALUES
-	(2, 15000, 'Voucher Steam Wallet 10000', '4908-3472-5427-9023', 0, '2019-07-06 18:05:44', '2019-07-07 13:41:07'),
-	(3, 25000, 'Voucher Steam Wallet 20000', '5804-2867-5911-7704', 100, '2019-07-06 18:05:59', '2019-07-06 18:05:59'),
-	(4, 100000, 'Voucher Discount Tolped 100000', '2312-2232-1123-2221', 108, '2019-07-07 21:41:03', '2019-07-07 13:49:07');
+	(2, 15000, 'Voucher Steal Wallet 10000', '4908-3472-5427-9023', 3, '2019-07-06 18:05:44', '2019-07-07 13:41:07'),
+	(3, 25000, 'Voucher Steal Wallet 20000', '5804-2867-5911-7704', 100, '2019-07-06 18:05:59', '2019-07-06 18:05:59'),
+	(4, 100000, 'Voucher Discount Tolped 100000', '2312-2232-1123-2221', 107, '2019-07-07 21:41:03', '2019-07-07 15:43:38');
 /*!40000 ALTER TABLE `vouchers` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
