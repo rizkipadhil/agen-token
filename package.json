@@ -1,7 +1,7 @@
 {
-  "name": "firsttest",
+  "name": "Jualan Voucher",
   "version": "1.0.0",
-  "description": "",
+  "description": "Tempat jual sana sini voucher pulsa, steam, diskon dll",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js"
