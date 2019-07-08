@@ -1,5 +1,4 @@
 # Voucher Shop API
-Database : vouchershop
 ## Usage
 
 to start, simply
@@ -9,6 +8,10 @@ $ npm i
 $ npm run dev
 $ npm test
 ```
+
+
+Database : Mysql <br>
+Name : vocuhershop <br>
 
 ## Configuration
 
