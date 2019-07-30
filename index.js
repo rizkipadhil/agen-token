@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(homeRouter);
 app.use(authRouter);
 app.use('/voucher',voucherRouter);
-app.use('/user',voucherRouter);
+app.use('/user',userRouter);
 app.use('/topup',topupRouter);
 app.use('/order',orderRouter);
 
