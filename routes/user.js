@@ -3,8 +3,8 @@ const Joi = require("joi");
 const validator = require('express-joi-validation').createValidator({
     joi: Joi
 });
-const dataController = require('../controller/voucher');
-const modelData = require('../models').Voucher;
+const dataController = require('../controller/user');
+const modelData = require('../models').User;
 const authMiddleware = require('../middleware/auth');
 
 var router = express.Router();
