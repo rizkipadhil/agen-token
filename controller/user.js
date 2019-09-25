@@ -9,8 +9,6 @@ const allData = async (req, res) => {
         var data = await modelData.findAll({
             include: [{
                 model: relationData
-            }, {
-                model: relationDataTopup
             }]
         });
         res.json({

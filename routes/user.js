@@ -19,7 +19,7 @@ const updateSchema = {
 };
 
 
-router.get('/', authMiddleware.verifyToken, dataController.allData);
+router.get('/', dataController.allData);
 router.get('/:id', authMiddleware.verifyToken, dataController.findData);
 router.put('/:id', authMiddleware.verifyToken, validator.body(updateSchema), dataController.updateData);
 router.delete('/:id', authMiddleware.verifyToken, dataController.deleteData);
